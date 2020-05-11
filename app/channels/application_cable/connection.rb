@@ -10,6 +10,7 @@ module ApplicationCable
     protected
 
       def find_verified_user
+        # from devise you need to be logged in to have action cable connection
         if current_user = env['warden'].user
           current_user
         else

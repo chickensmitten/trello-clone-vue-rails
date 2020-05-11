@@ -28,6 +28,13 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
+
+        # When we create a list, we want action cable server to board cast to the board channel, 
+        # passing in commit to a list to matches up with the mutation, 
+        # then render to string, with show format json, this will then render to the json jbuilder file where we can then render to vue js
+
+        ActionCable.server.broadcast "board", { commit: 'addList', payload: render_to_string(:show, formats: [:json]) }
+
         format.html { redirect_to @list, notice: 'List was successfully created.' }
         format.json { render :show, status: :created, location: @list }
       else

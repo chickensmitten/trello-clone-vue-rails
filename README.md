@@ -17,3 +17,23 @@ and
 Or if using ES6+:
 
 :id="`purchase-${item.id}`"
+
+
+## Using ActionCable
+rails g channel Board
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

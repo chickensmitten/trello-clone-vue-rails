@@ -10,7 +10,7 @@
 
     <a v-if="!editing" @click="startEditing">Add a Card</a>
     <textarea v-if="editing" ref="message" v-model="message" class="form-control mb-2"></textarea>
-    <button v-if="editing" v-on:click="submitMessage" class="btn btn-secondary"> Add </button>
+    <button v-if="editing" v-on:click="createCard" class="btn btn-secondary"> Add </button>
     <a v-if="editing" @click="editing=false">Cancel</a>
 
   </div>  
@@ -64,7 +64,7 @@ export default {
 
     },
 
-    submitMessage: function() {
+    createCard: function() {
       var data = new FormData;
       data.append("card[list_id]", this.list.id);
       data.append("card[name]", this.message);
@@ -77,8 +77,7 @@ export default {
         dataType: "json",
         // When success response comes back, then we have to append the existing lists, so that the new item in lists will show
         success: (data) => {
-          const index = window.store.lists.findIndex(item => item.id == this.list.id)
-          window.store.lists[index].cards.push(data)
+          this.$store.commit('addCard', data)
           this.message = ""
           this.$nextTick(() => { this.$refs.message.focus() })
         }

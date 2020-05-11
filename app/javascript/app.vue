@@ -7,7 +7,7 @@
     <div class="list">
       <a v-if="!editing" @click="startEditing">Add a List</a>
       <textarea v-if="editing" ref="message" v-model="message" class="form-control mb-2"></textarea>
-      <button v-if="editing" v-on:click="submitMessage" class="btn btn-secondary"> Add </button>
+      <button v-if="editing" v-on:click="createList" class="btn btn-secondary"> Add </button>
       <a v-if="editing" @click="editing=false">Cancel</a>
     </div>
 
@@ -53,7 +53,7 @@ export default {
         // no need to do anything on success because the new location of the list is already persisting.
       })
     },
-    submitMessage: function() {
+    createList: function() {
       var data = new FormData;
       data.append("list[name]", this.message);
 
@@ -65,7 +65,8 @@ export default {
         dataType: "json",
         // When success response comes back, then we have to append the existing lists, so that the new item in lists will show
         success: (data) => {
-          window.store.lists.push(data)
+          // when using action Cable, this could cause duplicates.
+          this.$store.commit('addList', data)
           //  the problem here is that it does not return the cards, only the list, so we need to add the association in _list.json.jbuilder
           this.message = ""
           this.editing = false
