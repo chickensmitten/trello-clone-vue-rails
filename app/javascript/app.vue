@@ -31,6 +31,7 @@ export default {
     lists: {
       // Computed property "lists" was assigned to but it has no setter.
       get() {
+        debugger;
         return this.$store.state.lists
       },
       set(value) {

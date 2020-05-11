@@ -3,8 +3,9 @@ const state = {
 
 const mutations = {
   addCard(state, data){
-    const index = store.state.lists.findIndex(item => item.id == data.list_id)
-    store.state.lists[index].cards.push(data)
+    debugger;
+    const index = state.lists.findIndex(item => item.id == data.list_id)
+    state.lists[index].cards.push(data)
   },
   editCard(state, data){
     // find the right list and the right card then get the location of the index
