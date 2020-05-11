@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :move]
 
   # GET /lists
   # GET /lists.json
@@ -59,6 +59,13 @@ class ListsController < ApplicationController
       format.html { redirect_to lists_url, notice: 'List was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def move
+    #  use act_as_list methods to insert a new list in a new position, then resolve the rest.
+    #  Because the logic to automatically sort all that will be crazy
+    @list.insert_at(list_params[:position].to_i)
+    render action: :show
   end
 
   private
