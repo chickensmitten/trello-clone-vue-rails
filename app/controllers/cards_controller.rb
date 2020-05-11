@@ -70,6 +70,7 @@ class CardsController < ApplicationController
   def move
     #  when we update the position for this card, it is wise enough to update positions for the other cards
     @card.update(card_params)
+    ActionCable.server.broadcast "board", { commit: 'moveCard', payload: render_to_string(:show, formats: [:json]) }
     render action: :show
   end
 

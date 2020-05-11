@@ -28,8 +28,14 @@ export default {
   },
 
   computed: {
-    lists() {
-      return this.$store.state.lists;
+    lists: {
+      // Computed property "lists" was assigned to but it has no setter.
+      get() {
+        return this.$store.state.lists
+      },
+      set(value) {
+        this.$store.state.lists = value
+      },
     }
   },
 
