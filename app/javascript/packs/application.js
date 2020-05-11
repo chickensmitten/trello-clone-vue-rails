@@ -23,14 +23,15 @@ import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
 import store from '../store/store';
 
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbolinks:load", () => {
   var element = document.querySelector('#boards')
   if (element != undefined) {
+
     store.state.lists = JSON.parse(element.dataset.lists)
 
     const app = new Vue({
       el: element,
-      store: window.store,
+      store: store,
       template: "<App />",
       components: { App }
     })
