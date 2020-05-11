@@ -20,15 +20,19 @@ import list from 'components/List'
 
 export default {
   components: { draggable, list },
-
-  props: ["original_lists"],
   data: function() {
     return {
-      lists: this.original_lists,
       editing: false,
       message: "",
     }
   },
+
+  computed: {
+    lists() {
+      return this.$store.state.lists;
+    }
+  },
+
   methods: {
     startEditing: function() {
       this.editing = true

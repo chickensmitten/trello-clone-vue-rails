@@ -20,21 +20,39 @@ $(document).on("turbolinks:load", () => {
 })
 
 import Vue from 'vue/dist/vue.esm'
+import Vuex from 'vuex'
 import App from '../app.vue'
 
-window.store = {}
+Vue.use(Vuex)
+
+window.store = new Vuex.Store({
+  state: {
+    lists: []
+  },
+  mutations: {
+    addList(state, data){
+
+    },
+    addCard(state, data){
+      
+    },
+    editCard(state, data){
+      
+    }        
+  }
+})
 //  allows us to fiddle ui as vue has an observer
 // window.store.lists.push({name: "Custom List"})
 
 document.addEventListener("turbolinks:load", function() {
   var element = document.querySelector('#boards')
   if (element != undefined) {
-    window.store.lists = JSON.parse(element.dataset.lists)
+    window.store.state.lists = JSON.parse(element.dataset.lists)
 
     const app = new Vue({
       el: element,
-      data: window.store,
-      template: "<App :original_lists='lists' />",
+      store: window.store,
+      template: "<App />",
       components: { App }
     })
   }
