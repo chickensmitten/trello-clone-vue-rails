@@ -23,7 +23,12 @@ Or if using ES6+:
 rails g channel Board
 
 
+## Errors
+The problem:
+RROR: heartbeat: MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data set are disabled, because this instance is configured to report errors during writes if RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs for details about the RDB error.
 
+The solution:
+brew services restart redis
 
 
 
