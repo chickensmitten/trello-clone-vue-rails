@@ -3,6 +3,14 @@
   <!-- v-model lists to changes in lists -->
   <draggable v-model="lists" :options="{group: 'lists'}" class="board dragArea" @end="listMoved">
     <list v-for="(list, index) in lists" :list="list"></list>
+
+    <div class="list">
+      <a v-if="!editing" @click="startEditing">Add a List</a>
+      <textarea v-if="editing" ref="message" v-model="message" class="form-control mb-2"></textarea>
+      <button v-if="editing" v-on:click="submitMessage" class="btn btn-secondary"> Add </button>
+      <a v-if="editing" @click="editing=false">Cancel</a>
+    </div>
+
   </draggable>
 </template>
 
@@ -17,10 +25,16 @@ export default {
   data: function() {
     return {
       lists: this.original_lists,
+      editing: false,
+      message: "",
     }
   },
   methods: {
-
+    startEditing: function() {
+      this.editing = true
+      // this references the ref="message" in textarea, so that it can auto focus the cursor in textarea
+      this.$nextTick(() => { this.$refs.message.focus() })
+    },
     listMoved: function(event) {
       // console.log(event);
       var data = new FormData;
@@ -34,8 +48,26 @@ export default {
         dataType: "json",
         // no need to do anything on success because the new location of the list is already persisting.
       })
-
     },
+    submitMessage: function() {
+      var data = new FormData;
+      data.append("list[name]", this.message);
+
+      Rails.ajax({
+        // create new cards in the list.
+        url: "/lists",
+        type: "POST",
+        data: data,
+        dataType: "json",
+        // When success response comes back, then we have to append the existing lists, so that the new item in lists will show
+        success: (data) => {
+          window.store.lists.push(data)
+          //  the problem here is that it does not return the cards, only the list, so we need to add the association in _list.json.jbuilder
+          this.message = ""
+          this.editing = false
+        }
+      });
+    },       
   }
 }
 </script>
@@ -52,5 +84,14 @@ export default {
   overflow-x: auto;
 }
 
+.list {
+  background: #E2E4E6;
+  border-radius: 3px;
+  padding: 10px;  
+  display: inline-block;
+  margin-right: 20px;
+  vertical-align: top;
+  width: 270px;
+}
 
 </style>
