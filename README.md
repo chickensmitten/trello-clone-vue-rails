@@ -1,24 +1,19 @@
-# README
+# Instructions and Tutorials
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##Getting started with Vue on Rails**
+- rails webpacker:install:vue
+- yarn add <required-packages>
+- go to application html to change the stylesheet tags and javascript tags to pack tags (maybe)
+- Run ./bin/webpack-dev-server in another terminal tab so that it loads faster.
 
-Things you may want to cover:
 
-* Ruby version
+## Some Javascript hints
+Use javascript code inside v-bind (or shortcut ":") :
 
-* System dependencies
+:href="'#purchase-' + item.id"
+and
 
-* Configuration
+:id="'purchase-' + item.id"
+Or if using ES6+:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+:id="`purchase-${item.id}`"
