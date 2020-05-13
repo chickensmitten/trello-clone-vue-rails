@@ -1,13 +1,8 @@
 const state = {
-  lists: []  
 };
 
 const mutations = {
-  addCard(state, data){
-    const index = state.lists.findIndex(item => item.id == data.list_id)
-    debugger;
-    state.lists[index].cards.push(data)
-  },
+
   editCard(state, data){
     // find the right list and the right card then get the location of the index
     const list_index = state.lists.findIndex((item) => item.id === data.list_id)
