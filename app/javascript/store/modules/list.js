@@ -4,13 +4,9 @@ const state = {
 
 const mutations = {
   addList(state, data){
+    debugger;
     state.lists.push(data)
   },
-  addCard(state, data){
-    const index = state.lists.findIndex(item => item.id == data.list_id)
-    debugger;    
-    state.lists[index].cards.push(data)
-  },  
 };
 
 const actions = {
