@@ -7,6 +7,9 @@ import card from './modules/card';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  state: {
+    lists: []
+  },
   modules: {
     list,
     card
@@ -14,7 +17,6 @@ const store = new Vuex.Store({
 });
 //  allows us to fiddle ui as vue has an observer
 // window.store.lists.push({name: "Custom List"})
-
 
 window.store = store
 export default store

@@ -77,7 +77,7 @@ export default {
         dataType: "json",
         // When success response comes back, then we have to append the existing lists, so that the new item in lists will show
         success: (data) => {
-          this.$store.commit('addCard', data)
+          this.$store.dispatch('addCard', data)
           this.message = ""
           this.$nextTick(() => { this.$refs.message.focus() })
         }

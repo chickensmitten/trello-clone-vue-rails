@@ -2,12 +2,6 @@ const state = {
 };
 
 const mutations = {
-  // can use "addCard: (state, data) => {" function or below
-  addCard(state, data){
-    debugger;    
-    const index = state.lists.findIndex(item => item.id == data.list_id)
-    state.lists[index].cards.push(data)
-  },  
   editCard(state, data){
     // find the right list and the right card then get the location of the index
     const list_index = state.lists.findIndex((item) => item.id === data.list_id)
@@ -36,7 +30,11 @@ const mutations = {
 };
 
 const actions = {
-
+  // can use "addCard: (state, data) => {" function or below
+  addCard({rootState}, data){
+    const index = rootState.lists.findIndex(item => item.id == data.list_id)
+    rootState.lists[index].cards.push(data)
+  },
 };
 
 const getters = {
